@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>verification code</title>
+    <style type="text/css">
+		body,*{
+			background-color:;
+		}
+		#checkNum {
+			padding:5px;
+		}
+		a {
+			text-decoration: none;
+			color:#2E2D2D;
+			font-family: Arial;			
+		}
+		a div {
+			border: 1px solid #615E5E;
+			padding: 5px;
+			height: 20px;
+			width: 46px;
+			margin-left: 5px;
+		}
+		
+    </style>
+</head>
+
+<body>
+    <form action="javascipt:alert('Validation success!')">
+        <table>
+            <tr>
+                <td>
+                    <input type="text" name="" value="请输入验证码" id="checkNum" onfocus="javascript:if(this.value=='请输入验证码')this.value='';"/>
+                </td>
+                <td>
+                    <a href="javascript:void(0);">
+                        <div id="checkCode" onclick="createCode()" ;></div>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" rowspan="" headers="">
+                    <input type="button" name="btnCheck" value="验证" onclick="validate();">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <script>
+    	var code='';//在全局定义验证码
+    	function createCode() {
+    		code='';//将验证码初始化为空
+    		var codeLength=4;//定义验证码的长度为4
+    		var checkCode=document.getElementById("checkCode");
+    		checkCode.value='';
+    		var selectChar=new Array(0,1,2,3,4,5,6,7,8,9,'A','B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+    		for(var i=0;i<codeLength;i++) {
+    			var charIndex=Math.floor(Math.random()*32);
+    			code+=selectChar[charIndex];
+    		}
+    		if(code.length!=codeLength) {
+    			createCode();
+    		}
+    		checkCode.innerHTML=code;
+    	}
+    	function validate() {
+    		var inputCode=document.getElementById("checkNum").value.toUpperCase();
+    		if(inputCode.length<=0){
+    			alert("请输入正确的验证码！");
+    			return false;
+    		}else if(inputCode!=code){
+    			alert("验证码输入错误！");
+    			createCode();
+    			return false;
+    		}else {
+    			alert("验证码通过！");
+    			return true;
+    		}
+    	}
+    	window.onload=function() {
+    		createCode();
+    	};
+    </script>
+</body>
+
+</html>
